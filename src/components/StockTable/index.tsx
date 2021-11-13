@@ -1,7 +1,7 @@
 
 import React, { memo } from 'react';
 
-interface IState {
+interface IProps {
   stocks:{
     name:string;
     today:number;
@@ -11,27 +11,42 @@ interface IState {
       y:number;
     }[];
   }[];
+  // stock:{
+  //   name:string;
+  //   today:number;
+  //   change:number;
+  //   data:{
+  //     x:Date;
+  //     y:number;
+  //   }[];
+  // }[];
 }
 
 // The StockTable is used to show all stock data
-export default memo(function StockTable(stocks:IState) {
+export default memo(function StockTable(props:IProps) {
 
-  // console.log(stocks);
+  const { stocks } = props;
+
+  console.log('this is ', stocks);
 
   return (
     <div>
       <h2>Stocks</h2>
       <div>
-        {/* {stocks.map(stock:any => (
+        {
+          stocks.map((stock) => (
             <Row key={stock.name} stock={stock} />
-          ))} */}
+          ))
+        }
       </div>
     </div>
   );
 });
 
 // This is a row-data component
-function Row(stock:any) {
+function Row(props:IProps) {
+
+  const { stocks } = props;
 
   return (
     <tr>

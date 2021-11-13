@@ -16,14 +16,14 @@ export function fakeStock(name:string) {
   const change = Math.round((1000 * (today - yesterday)) / yesterday) / 10;
   return {
     name,
-    // today,
-    // change,
-    // data: [
-    //   { x: daysAgo(4), y: randomData() },
-    //   { x: daysAgo(3), y: randomData() },
-    //   { x: daysAgo(2), y: randomData() },
-    //   { x: daysAgo(1), y: yesterday },
-    //   { x: daysAgo(0), y: today },
-    // ],
+    today,
+    change,
+    data: [
+      { x: daysAgo(4), y: randomData() },
+      { x: daysAgo(3), y: randomData() },
+      { x: daysAgo(2), y: randomData() },
+      { x: daysAgo(1), y: yesterday },
+      { x: daysAgo(0), y: today },
+    ],
   };
 }

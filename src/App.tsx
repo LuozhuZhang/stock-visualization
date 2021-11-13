@@ -3,7 +3,7 @@ import React, { memo, useState } from 'react';
 
 import StockTable from './components/StockTable';
 
-interface IState {
+interface IProps {
   stocks:{
     name:string;
     today:number;
@@ -15,9 +15,11 @@ interface IState {
   }[];
 }
 
-export default memo(function App(stocks:IState) {
+export default memo(function App(props:IProps) {
 
-  console.log(stocks);
+  const { stocks } = props;
+
+  // console.log(stocks);
 
   const [selectedSrock, setSelectedSrock] = useState(null);
 
