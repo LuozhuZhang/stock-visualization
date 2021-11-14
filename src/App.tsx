@@ -2,6 +2,8 @@
 import React, { memo, useState } from 'react';
 
 import StockTable from './components/StockTable';
+import StockChart from './components/StockChart';
+import Modal from './components/Modal';
 
 interface IProps {
   stocks:{
@@ -13,19 +15,26 @@ interface IProps {
       y:number;
     }[];
   }[];
+  onClose?:any;
 }
 
 export default memo(function App(props:IProps) {
 
-  const { stocks } = props;
+  const { stocks, onClose } = props;
 
-  // console.log(stocks);
-
-  const [selectedSrock, setSelectedSrock] = useState(null);
+  const [selectedStock, setSelectedStock] = useState(null);
 
   return (
-    <div>
-      <StockTable stocks={stocks} />
-    </div>
+    <React.Fragment>
+      <StockTable
+        stocks={stocks}
+        onSelect={setSelectedStock}/>
+      {selectedStock && (
+        <StockChart
+          stock={selectedStock}
+          // onClose={setSelectedStock(false)}
+        />
+      )}
+    </React.Fragment>
   );
 });

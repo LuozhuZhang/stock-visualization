@@ -1,6 +1,8 @@
 
 import React, { memo } from 'react';
 
+import './index';
+
 interface IProps {
   stocks:{
     name:string;
@@ -11,48 +13,42 @@ interface IProps {
       y:number;
     }[];
   }[];
-  // stock:{
-  //   name:string;
-  //   today:number;
-  //   change:number;
-  //   data:{
-  //     x:Date;
-  //     y:number;
-  //   }[];
-  // }[];
+  onSelect:Function;
 }
 
 // The StockTable is used to show all stock data
 export default memo(function StockTable(props:IProps) {
 
-  const { stocks } = props;
+  const { stocks, onSelect } = props;
 
-  console.log('this is ', stocks);
+  // console.log('this is ', stocks);
 
   return (
-    <div>
-      <h2>Stocks</h2>
-      <div>
+    <table>
+      <caption>Stocks</caption>
+      <tbody>
         {
           stocks.map((stock) => (
-            <Row key={stock.name} stock={stock} />
+            <Row key={stock.name} stock={stock} onClick={onSelect(stock)} />
           ))
         }
-      </div>
-    </div>
+      </tbody>
+    </table>
   );
 });
 
 // This is a row-data component
-function Row(props:IProps) {
+function Row(props:any) {
 
-  const { stocks } = props;
+  const { stock, onClick } = props;
 
   return (
-    <tr>
+    <tr key={stock.name} onClick={onClick} >
       <td>{stock.name}</td>
       <td>{stock.price}</td>
-      <td>{stock.change}%</td>
+      <td style={{ color: stock.change < 0 ? 'darkred' : 'darkgreen' }}>
+        {stock.change < 0 ? stock.change : '+' + stock.change }%
+      </td>
     </tr>
   );
 }
