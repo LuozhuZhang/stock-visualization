@@ -7,7 +7,6 @@ interface IProps {
 }
 
 function Modal(props:IProps) {
-
   const { onClose, children } = props;
   return (
     <Overlay onClose={onClose}>
@@ -35,17 +34,16 @@ function Overlay(props:IProps) {
         justifyContent: 'center',
       }}
       onClick={(event) => {
-        // stopPropagation keeps the event from bubbling any further up into the DOM
+        // StopPropagation keeps the event from bubbling any further up into the DOM
+        // Click mask to close Modal
         event.stopPropagation();
         onClose();
       }}
     >
-      {/* get collection of the <div> element's children */}
+      {/* Get collection of the <div> element's children */}
       {children}
     </div>
   );
-  // React writing style
-  React.createElement('div', {}, 'children');
 }
 
 function Content(props:IProps) {
@@ -63,9 +61,9 @@ function Content(props:IProps) {
         position: 'relative',
         borderRadius: '10px',
       }}
-      // indicates whether an element is modal when displayed
+      // Indicates whether an element is modal when displayed
       aria-modal='true'
-      // the element is focused
+      // The element is focused
       tabIndex={-1}
     >
       <CloseButton onClick={onClose} />

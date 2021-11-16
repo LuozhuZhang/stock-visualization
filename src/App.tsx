@@ -1,9 +1,8 @@
 
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 
 import StockTable from './components/StockTable';
 import StockChart from './components/StockChart';
-import Modal from './components/Modal';
 
 interface IProps {
   stocks:{
@@ -15,26 +14,34 @@ interface IProps {
       y:number;
     }[];
   }[];
-  onClose?:any;
 }
 
 export default memo(function App(props:IProps) {
 
-  const { stocks, onClose } = props;
+  const { stocks } = props;
+  const a = null;
 
   const [selectedStock, setSelectedStock] = useState(null);
+  // Send data from child to parent component by using useCallback
+  const callback = useCallback(
+    (selectedStock) => {
+      setSelectedStock(selectedStock);
+    }, [],
+  );
 
   return (
-    <React.Fragment>
+    <div>
       <StockTable
         stocks={stocks}
-        onSelect={setSelectedStock}/>
+        onSelect={callback}/>
+      {/* Control Modal open and close */}
       {selectedStock && (
         <StockChart
           stock={selectedStock}
-          // onClose={setSelectedStock(false)}
+          // Pass in the closed function
+          onClose={() => setSelectedStock(a)}
         />
       )}
-    </React.Fragment>
+    </div>
   );
 });

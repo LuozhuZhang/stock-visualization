@@ -1,15 +1,15 @@
 
-// generate data
+// Generate data
 function randomData() {
-  return Math.round(1000 + Math.random() * 1000) / 10; // Math.round return nearest integer
+  return Math.round(Math.round(1000 + Math.random() * 1000) / 10); // Math.round return nearest integer
 }
 
-// generate date
+// Generate date
 function daysAgo(days:number) {
   return new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 }
 
-// generate fake stock
+// Generate fake stock
 export function fakeStock(name:string) {
   const today = randomData();
   const yesterday = randomData();

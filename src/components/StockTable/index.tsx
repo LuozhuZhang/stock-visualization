@@ -1,5 +1,5 @@
 
-import React, { memo } from 'react';
+import React, { memo, useState, useContext } from 'react';
 
 import './index';
 
@@ -21,15 +21,14 @@ export default memo(function StockTable(props:IProps) {
 
   const { stocks, onSelect } = props;
 
-  // console.log('this is ', stocks);
-
   return (
     <table>
       <caption>Stocks</caption>
       <tbody>
         {
           stocks.map((stock) => (
-            <Row key={stock.name} stock={stock} onClick={onSelect(stock)} />
+            // Click and send selected stock data to App parent component
+            <Row key={stock.name} stock={stock} onClick={() => onSelect(stock)} />
           ))
         }
       </tbody>
@@ -45,7 +44,7 @@ function Row(props:any) {
   return (
     <tr key={stock.name} onClick={onClick} >
       <td>{stock.name}</td>
-      <td>{stock.price}</td>
+      <td>{stock.today}</td>
       <td style={{ color: stock.change < 0 ? 'darkred' : 'darkgreen' }}>
         {stock.change < 0 ? stock.change : '+' + stock.change }%
       </td>

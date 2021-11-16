@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-// victory is a data visualization library
+// Victory is a data visualization library
 import {
   VictoryLine,
   VictoryChart,
@@ -9,23 +9,29 @@ import {
   VictoryAxis,
 } from 'victory';
 
-// the moment is a javascript date library
+// The moment is a javascript date library
 import moment from 'moment';
 
 import Modal from '../Modal/index';
 
 interface IProps {
-  stock?:any;
-  onClose?:Function;
+  stock:{
+    name:string;
+    today:number;
+    change:number;
+    data:{
+      x:Date;
+      y:number;
+    }[];
+  };
+  onClose:Function;
 }
 
 export default memo(function StockChart(props:IProps) {
 
   const { stock, onClose } = props;
 
-  console.log('this is', stock);
-
-  // return object's value
+  // Return object's value
   const [first, ...rest] = Object.values(stock.data);
   const [last] = rest.reverse();
   const up = last.y >= first.y;
@@ -34,12 +40,14 @@ export default memo(function StockChart(props:IProps) {
   return (
     <Modal onClose={onClose}>
       <VictoryChart
+        // Chart layout
         domain={{ y: [80, 220] }}
         height={height}
         width={width}
         containerComponent={<VictoryContainer responsive={false} />}
       >
         <VictoryLabel
+          // Chart title
           text={stock.name}
           x={width / 2}
           y={30}
@@ -47,8 +55,9 @@ export default memo(function StockChart(props:IProps) {
           style={{ fontSize: '18px', fontWeight: 'bold' }}
         />
         <VictoryLine
+          // Chart line
           data={stock.data}
-          labels={(d) => d.y}
+          labels={({ datum }) => datum.y}
           x={(d) => moment(d.x).format('MMM D')}
           style={{
             labels: { opacity: 0.75 },
@@ -67,7 +76,7 @@ export default memo(function StockChart(props:IProps) {
 });
 
 function getDimentions() {
-  // get the brower viewport dimensions
+  // Get the brower viewport dimensions
   const viewportWidth = Math.max(
     document.documentElement.clientWidth,
     window.innerWidth || 0,
@@ -77,7 +86,7 @@ function getDimentions() {
     window.innerHeight || 0,
   );
 
-  // mobile adaptation
+  // Mobile adaptation
   const maxWidth = 600;
   const mobileViewportWidth = 500;
   let width = viewportWidth;
