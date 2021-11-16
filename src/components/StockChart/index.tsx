@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, lazy, Suspense } from 'react';
 
 // Victory is a data visualization library
 import {

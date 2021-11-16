@@ -1,8 +1,8 @@
 
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback, lazy, Suspense } from 'react';
 
-import StockTable from './components/StockTable';
-import StockChart from './components/StockChart';
+const StockTable = React.lazy(():any => import('./components/StockTable'));
+const StockChart = React.lazy(():any => import('./components/StockChart'));
 
 interface IProps {
   stocks:{
@@ -30,7 +30,7 @@ export default memo(function App(props:IProps) {
   );
 
   return (
-    <div>
+    <Suspense fallback={<div/>}>
       <StockTable
         stocks={stocks}
         onSelect={callback}/>
@@ -42,6 +42,6 @@ export default memo(function App(props:IProps) {
           onClose={() => setSelectedStock(a)}
         />
       )}
-    </div>
+    </Suspense>
   );
 });
